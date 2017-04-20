@@ -28,12 +28,7 @@ public class AirConsoleTest : MonoBehaviour {
         {
             if (AirConsole.instance.GetControllerDeviceIds().Count >= 2)
             {
-                Debug.Log("2 Players CONNECTED!");
                 AirConsole.instance.SetActivePlayers(2);
-            }
-            else
-            {
-                Debug.Log("test1");
             }
         }
     }
@@ -72,43 +67,15 @@ public class AirConsoleTest : MonoBehaviour {
         Debug.Log("Received Message");
         Debug.Log("Message: " + data.ToString());
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
+        if (active_player == -1) return;
         JToken parsedData = JToken.Parse(data.ToString());
-        Debug.Log("Device: " + device_id + "   - Player: " + active_player);
-        Debug.Log(parsedData["type"].ToString());
-        if (active_player != -1)
+        if ((string)parsedData["type"] == "move")
         {
-            if (active_player == 0)
-            {
-                if ((string)parsedData["type"] == "move")
-                {
-                    Debug.Log("MOVE PLAYER 1");
-                }
-                else if ((string)parsedData["type"] == "bomb")
-                {
-                    Debug.Log("PLACEBOMB PLAYER 1");
-                }
-            }
-            if (active_player == 1)
-            {
-                if ((string)parsedData["type"] == "move")
-                {
-                    Debug.Log("MOVE PLAYER 2");
-                }
-                else if ((string)parsedData["type"] == "bomb")
-                {
-                    Debug.Log("PLACEBOMB PLAYER 2");
-                }
-            }
+            Debug.Log("MOVE PLAYER " + active_player);
+        }
+        else if ((string)parsedData["type"] == "bomb")
+        {
+            Debug.Log("PLACEBOMB PLAYER " + active_player);
         }
     }
-
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
