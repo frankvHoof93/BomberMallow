@@ -65,66 +65,90 @@
 
     </script>
     <style type="text/css">
-        @font-face {
-            font-family: 'Arial';
-        }
-
-        html, body {
-            height: 100%;
-            margin: 0px;
-            font-family: 'PressStart2P', sans-serif;
-            color: white;
-            text-align: center;
-            background-color: black;
-        }
-
-        .button {
-            display: inline-block;
-            height: 45%;
-            width: 98%;
-            background-color: #222;
-            position: relative;
-        }
-
-        .button_label {
-            position: absolute;
-            left: 0px;
-            width: 100%;
-            top: 50%;
-            margin-top: -6px;
-        }
-
-        #player_id {
-            position: absolute;
-            top: 50%;
-            left: 0%;
-            width: 100%;
-            margin-top: -8px;
-            color: #777;
-        }
+		html, body
+		{
+			margin: 0px;
+			padding: 0px;
+			background: #111111;
+		}
+		
+		.up
+		{
+			background-image: url("Arrow-Up.png");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			width: 15%;
+			position: absolute;
+			padding-top: 15%;
+			
+			margin-left: 15%;
+		}
+		
+		.down
+		{
+			background-image: url("Arrow-Down.png");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			width: 15%;
+			position: absolute;
+			padding-top: 15%;
+			
+			margin-top: 30%;
+			margin-left: 15%;
+		}
+		
+		.left
+		{
+			background-image: url("Arrow-Left.png");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			width: 15%;
+			position: absolute;
+			padding-top: 15%;
+			
+			margin-top: 15%;
+		}
+		
+		.right
+		{
+			background-image: url("Arrow-Right.png");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			width: 15%;
+			position: absolute;
+			padding-top: 15%;
+			
+			margin-top: 15%;
+			margin-left: 30%;
+		}
+		
+		.bomb
+		{
+			background-image: url("Bomb.png");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			width: 40%;
+			position: absolute;
+			padding-top: 40%;
+			
+			margin-top: 5%;
+			margin-left: 55%;
+		}
     </style>
 </head>
 <body onload="init()">
-    <div style="height: 1%"></div>
-    <div class=button ontouchstart="moveY(5)" ontouchend="moveY(0)" onmousedown="moveY(5)" onmouseup="moveY(0)">
-        <div class="button_label">UP</div>
+    <div class="button up" ontouchend="moveY(1)" ontouchend="moveY(0)" onmousedown="moveY(1)" onmouseup="moveY(0)">
     </div>
-    <div style="height: 1%"></div>
-    <div class=button ontouchstart="moveY(-5)" ontouchend="moveY(0)" onmousedown="moveY(-5)" onmouseup="moveY(0)">
-        <div class="button_label">DOWN</div>
+    <div class="button down" ontouchstart="moveY(-1)" ontouchend="moveY(0)" onmousedown="moveY(-1)" onmouseup="moveY(0)">
     </div>
-    <div style="height: 1%"></div>
-    <div class=button ontouchstart="moveX(-5)" ontouchend="moveX(0)" onmousedown="moveX(-5)" onmouseup="moveX(0)">
-        <div class="button_label">LEFT</div>
+    <div class="button left" ontouchstart="moveX(-1)" ontouchend="moveX(0)" onmousedown="moveX(-1)" onmouseup="moveX(0)">
     </div>
-    <div style="height: 1%"></div>
-    <div class=button ontouchstart="moveX(5)" ontouchend="moveX(0)" onmousedown="moveX(5)" onmouseup="moveX(0)">
-        <div class="button_label">RIGHT</div>
+    <div class="button right" ontouchstart="moveX(1)" ontouchend="moveX(0)" onmousedown="moveX(1)" onmouseup="moveX(0)">
     </div>
-    <div style="height: 1%"></div>
-    <div class=button ontouchstart="placeBomb(1)" ontouchend="placeBomb(0)" onmousedown="placeBomb(1)" onmouseup="placeBomb(0)">
-        <div class="button_label">ALLAHU AKHBAR!</div>
-    </div>
+	
+	<div class="button bomb" ontouchstart="placeBomb(1)" ontouchend="placeBomb(0)" onmousedown="placeBomb(1)" onmouseup="placeBomb(0)">
+	</div>
+	
     <div id="player_id"></div>
 </body>
 </html>

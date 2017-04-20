@@ -72,10 +72,18 @@ public class AirConsoleTest : MonoBehaviour {
         if ((string)parsedData["type"] == "move")
         {
             Debug.Log("MOVE PLAYER " + active_player);
+            Vector2 dir = Vector2.zero;
+            if ((string)parsedData["axes"] == "x")
+                dir.x = (float)parsedData["moveAmount"];
+            if ((string)parsedData["axes"] == "y")
+                dir.y = (float)parsedData["moveAmount"];
+            GameManager.manager.GetPlayer(active_player).SetDirection(dir);
         }
         else if ((string)parsedData["type"] == "bomb")
         {
             Debug.Log("PLACEBOMB PLAYER " + active_player);
+            if ((bool)parsedData["bomb"])
+                GameManager.manager.GetPlayer(active_player).SetBomb();
         }
     }
 }
