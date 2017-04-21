@@ -33,6 +33,7 @@ public class Bomb : MonoBehaviour {
 	void Explode()
 	{
 		detonated = true;
+		this.GetComponent<AudioSource>().Play();
 		Vector3 pos = this.GetComponent<Renderer>().transform.position;
 		GameObject explosionBase = Instantiate(Resources.Load<GameObject>("ExplosionBase"), new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
 		explosionList.Add(explosionBase);
