@@ -31,19 +31,19 @@ public class GameManager : MonoBehaviour {
             GameObject player2 = (GameObject)Instantiate(Resources.Load<GameObject>("Player2"), new Vector3(9, 0.5f, 1), Quaternion.identity);
             player2.name = "Player2";
             players.Add(AirConsole.instance.GetActivePlayerDeviceIds[0], player1.GetComponent<Player>());
-            players.Add(AirConsole.instance.GetActivePlayerDeviceIds[0], player2.GetComponent<Player>());
+            players.Add(AirConsole.instance.GetActivePlayerDeviceIds[1], player2.GetComponent<Player>());
         }
         if (playerCount >= 3)
         {
             GameObject player3 = (GameObject)Instantiate(Resources.Load<GameObject>("Player3"), new Vector3(9, 0.5f, 9), Quaternion.identity);
             player3.name = "Player3";
-            players.Add(AirConsole.instance.GetActivePlayerDeviceIds[0], player3.GetComponent<Player>());
+            players.Add(AirConsole.instance.GetActivePlayerDeviceIds[2], player3.GetComponent<Player>());
         }
         if (playerCount >= 4)
         {
             GameObject player4 = (GameObject)Instantiate(Resources.Load<GameObject>("Player4"), new Vector3(1, 0.5f, 1), Quaternion.identity);
             player4.name = "Player4";
-            players.Add(AirConsole.instance.GetActivePlayerDeviceIds[0], player4.GetComponent<Player>());
+            players.Add(AirConsole.instance.GetActivePlayerDeviceIds[3], player4.GetComponent<Player>());
         }
     }
     

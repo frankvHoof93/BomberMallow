@@ -38,16 +38,16 @@
         div.innerHTML = "This is a 2-4 player game";
       } else if (player_number == 0) {
         div.innerHTML = "You are <font color=red>Red</font>";
-		document.getElementById("settings").style.visibility = visible;
+		document.getElementById("settings").style.visibility = "visible";
       } else if (player_number == 1) {
         div.innerHTML = "You are <font color=blue>Blue</font>";
-		document.getElementById("play").style.visibility = visible;
+		document.getElementById("play").style.visibility = "visible";
       } else if (player_number == 2) {
         div.innerHTML = "You are <font color=green>Green</font>";
-		document.getElementById("play").style.visibility = visible;
+		document.getElementById("play").style.visibility = "visible";
       } else if (player_number == 3) {
         div.innerHTML = "You are <font color=yellow>Yellow</font>";
-		document.getElementById("play").style.visibility = visible;
+		document.getElementById("play").style.visibility = "visible";
       };
 	}
 	
@@ -55,8 +55,8 @@
 	{
 		var text = '{ type : "start" }';
 		airconsole.message(AirConsole.SCREEN, text);
-		document.getElementById("settings").style.visibility = hidden;
-		document.getElementById("play").style.visibility = visible;
+		document.getElementById("settings").style.visibility = "hidden";
+		document.getElementById("play").style.visibility = "visible";
 	}
 
     /**
@@ -191,7 +191,7 @@
 		</div>
 	</div>
 	<div id="settings">
-		<div class="button start" ontouchstart="start()" onmousedown="start">
+		<div class="button start" ontouchstart="start()" onmousedown="start()">
 		</div>
 	</div>
     <div id="player_id" style="color:white;">TEST</div>

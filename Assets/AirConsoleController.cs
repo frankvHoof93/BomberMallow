@@ -24,7 +24,7 @@ public class AirConsoleController : MonoBehaviour {
 	/// <param name="device_id">The device_id that connected</param>
 	void OnConnect(int device_id)
     {
-        AirConsole.instance.SetActivePlayers(AirConsole.instance.GetActivePlayerDeviceIds.Count);
+        AirConsole.instance.SetActivePlayers(4);
     }
 
     /// <summary>
@@ -36,18 +36,6 @@ public class AirConsoleController : MonoBehaviour {
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
         if (active_player != -1)
         {
-            if (AirConsole.instance.GetControllerDeviceIds().Count >= 2)
-            {
-                //StartGame();
-                Debug.Log("Disconnect but still here");
-            }
-            else
-            {
-                AirConsole.instance.SetActivePlayers(0);
-                Debug.Log("Disconnect");
-                //ResetBall(false);
-                //uiText.text = "PLAYER LEFT - NEED MORE PLAYERS";
-            }
         }
     }
 
