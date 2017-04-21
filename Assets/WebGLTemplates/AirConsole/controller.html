@@ -23,6 +23,7 @@
       }
       airconsole.onActivePlayersChange = function(player_number) {
         updateText(player_number);
+		
       }
       airconsole.onReady = function() {
         updateText();
@@ -34,11 +35,15 @@
       if (airconsole.getActivePlayerDeviceIds().length == 0) {
         div.innerHTML = "Waiting for more players.";
       } else if (player_number == undefined) {
-        div.innerHTML = "This is a 2 player game";
+        div.innerHTML = "This is a 2-4 player game";
       } else if (player_number == 0) {
-        div.innerHTML = "You are the player on the left";
+        div.innerHTML = "You are <font color=red>Red</font>";
       } else if (player_number == 1) {
-        div.innerHTML = "You are the player on the right";
+        div.innerHTML = "You are <font color=blue>Blue</font>";
+      } else if (player_number == 2) {
+        div.innerHTML = "You are <font color=green>Green</font>";
+      } else if (player_number == 3) {
+        div.innerHTML = "You are <font color=yellow>Yellow</font>";
       };
 	}
 
@@ -149,6 +154,6 @@
 	<div class="button bomb" ontouchstart="placeBomb(1)" ontouchend="placeBomb(0)" onmousedown="placeBomb(1)" onmouseup="placeBomb(0)">
 	</div>
 	
-    <div id="player_id"></div>
+    <div id="player_id" style="color:white;">TEST</div>
 </body>
 </html>
