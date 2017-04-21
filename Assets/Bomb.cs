@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour {
 
 	public int time;
+	public int range;
 	private bool detonated = false;
 	private List<GameObject> explosionList = new List<GameObject>();
 
@@ -32,16 +34,36 @@ public class Bomb : MonoBehaviour {
 	{
 		detonated = true;
 		Vector3 pos = this.GetComponent<Renderer>().transform.position;
-		GameObject explosionBase = Instantiate(Resources.Load<GameObject>("ExplosionBase"), pos, Quaternion.identity);
+		GameObject explosionBase = Instantiate(Resources.Load<GameObject>("Explosion"), new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
 		explosionList.Add(explosionBase);
 
-		Vector3 direction = new Vector3(1, 0, 0);
-		RaycastHit[] rayHits = Physics.RaycastAll(pos, direction, 1);
+
+		List<RaycastHit> rayHits = new List<RaycastHit>();		
+		RaycastHit hit;
+		if (Physics.Raycast(new Ray(pos, new Vector3(1, 0, 0)), out hit, range))
+		{
+			rayHits.Add(hit);
+		}
+		if (Physics.Raycast(new Ray(pos, new Vector3(-1, 0, 0)), out hit, range))
+		{
+			rayHits.Add(hit);
+		}
+		if (Physics.Raycast(new Ray(pos, new Vector3(0, 0, 1)), out hit, range))
+		{
+			rayHits.Add(hit);
+		}
+		if (Physics.Raycast(new Ray(pos, new Vector3(0, 0, -1)), out hit, range))
+		{
+			rayHits.Add(hit);
+		}
 
 		foreach (RaycastHit rayHit in rayHits)
 		{
 			GameObject gO = rayHit.transform.gameObject;
-			Destroy(gO);
+			if (gO.tag != "Metal" && gO.tag != "Bomb")
+			{
+				Destroy(gO);
+			}
 		}
 	}
 }
