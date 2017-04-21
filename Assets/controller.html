@@ -53,10 +53,10 @@
 	
 	function start()
 	{
-		document.getElementById("settings").style.visibility = "hidden";
-		document.getElementById("play").style.visibility = "visible";
 		var text = '{ type : "start" }';
 		airconsole.message(AirConsole.SCREEN, text);
+		document.getElementById("settings").style.visibility = "hidden";
+		document.getElementById("play").style.visibility = "visible";
 	}
 
     /**
@@ -167,13 +167,11 @@
 		
 		#play
 		{
-			position: absolute;
 			visibility: hidden;
 		}
 		
 		#settings
 		{
-			position: absolute;
 			visibility: hidden;
 		}
     </style>
