@@ -38,6 +38,17 @@ public class AirConsoleController : MonoBehaviour {
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
         if (active_player != -1)
         {
+            if (SceneManager.GetActiveScene().buildIndex == 0) // Main Menu
+            {
+                AirConsole.instance.SetActivePlayers(4);
+                MainMenuController.controller.SetPlayerAmount(AirConsole.instance.GetActivePlayerDeviceIds.Count);
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 1) // Game
+            {
+                Player p = GameManager.manager.GetPlayer(device_id);
+                if (p != null)
+                    p.Die();
+            }
         }
     }
 
@@ -65,8 +76,9 @@ public class AirConsoleController : MonoBehaviour {
                     dir.x = (float)parsedData["moveAmount"];
                 if ((string)parsedData["axes"] == "y")
                     dir.y = (float)parsedData["moveAmount"];
-                Debug.Log("PlayerNULL? " + (GameManager.manager.GetPlayer(device_id) == null));
+                
                 Player p = GameManager.manager.GetPlayer(device_id);
+                Debug.Log("PlayerNULL? " + (p == null));
                 p.SetDirection(dir);
                 GameManager.manager.GetPlayer(device_id).SetDirection(dir);
             }

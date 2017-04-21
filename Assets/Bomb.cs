@@ -111,7 +111,12 @@ public class Bomb : MonoBehaviour {
 			GameObject gO = rayHit.transform.gameObject;
 			if (gO.tag != "Metal" && gO.tag != "Bomb")
 			{
-				Destroy(gO);
+                if (gO.tag == "Player")
+                {
+                    gO.GetComponent<Player>().Die();
+                }
+                else
+    				Destroy(gO);
 			}
 			if (gO.tag == "Bomb")
 			{

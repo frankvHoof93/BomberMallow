@@ -22,6 +22,12 @@ public class Player : MonoBehaviour {
         deviceID = id;
     }
 
+    public void Die()
+    {
+        GameManager.manager.RemovePlayer(deviceID);
+        Destroy(gameObject);
+    }
+
 	private void DoMove ()
 	{
         Vector3 pos = transform.position;

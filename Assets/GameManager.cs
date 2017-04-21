@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -54,12 +55,14 @@ public class GameManager : MonoBehaviour {
     /// <returns></returns>
     public Player GetPlayer(int playerID)
     {
-        foreach (int k in players.Keys)
-        {
-            Debug.Log("Devid " + k);
-        }
-        if (playerID >= playerCount || playerID < 0)
-            return null;
         return players[playerID];
+    }
+
+    public void RemovePlayer(int devId)
+    {
+        if (players.ContainsKey(devId))
+            players.Remove(devId);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            Debug.Log("GAMEOVER!!!!!!!!!!!");
     }
 }
