@@ -113,6 +113,13 @@ public class Bomb : MonoBehaviour {
 			{
 				Destroy(gO);
 			}
+			if (gO.tag == "Bomb")
+			{
+				if (gO.GetComponent<Bomb>().detonated == false)
+				{
+					gO.GetComponent<Bomb>().time = 1;
+				}
+			}
 		}
 	}
 
