@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using System;
@@ -69,12 +69,12 @@ public class AirConsoleController : MonoBehaviour {
                 dir.x = (float)parsedData["moveAmount"];
             if ((string)parsedData["axes"] == "y")
                 dir.y = (float)parsedData["moveAmount"];
-            GameManager.manager.GetPlayer(active_player).SetDirection(dir);
+            GameManager.manager.GetPlayer(device_id).SetDirection(dir);
         }
         else if ((string)parsedData["type"] == "bomb")
         {
             if ((bool)parsedData["bomb"])
-                GameManager.manager.GetPlayer(active_player).SetBomb();
+                GameManager.manager.GetPlayer(device_id).SetBomb();
         }
         else if ((string)parsedData["type"] == "start")
         {

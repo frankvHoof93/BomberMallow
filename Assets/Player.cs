@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
     private Vector2 direction = Vector2.zero;
     private bool bomb = false;
     private int counter = 0;
+    public int deviceID { get; private set; }
 
     public void SetDirection(Vector2 direction)
     {
@@ -14,6 +15,11 @@ public class Player : MonoBehaviour {
     public void SetBomb()
     {
         this.bomb = true;
+    }
+
+    public void SetDeviceID(int id)
+    {
+        deviceID = id;
     }
 
 	private void DoMove ()
