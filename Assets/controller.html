@@ -38,13 +38,25 @@
         div.innerHTML = "This is a 2-4 player game";
       } else if (player_number == 0) {
         div.innerHTML = "You are <font color=red>Red</font>";
+		document.getElementById("settings").style.visibility = visible;
       } else if (player_number == 1) {
         div.innerHTML = "You are <font color=blue>Blue</font>";
+		document.getElementById("play").style.visibility = visible;
       } else if (player_number == 2) {
         div.innerHTML = "You are <font color=green>Green</font>";
+		document.getElementById("play").style.visibility = visible;
       } else if (player_number == 3) {
         div.innerHTML = "You are <font color=yellow>Yellow</font>";
+		document.getElementById("play").style.visibility = visible;
       };
+	}
+	
+	function start()
+	{
+		var text = '{ type : "start" }';
+		airconsole.message(AirConsole.SCREEN, text);
+		document.getElementById("settings").style.visibility = hidden;
+		document.getElementById("play").style.visibility = visible;
 	}
 
     /**
@@ -139,21 +151,49 @@
 			margin-top: 5%;
 			margin-left: 55%;
 		}
+		
+		.start
+		{
+			background-image: url("Bomb.png");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			width: 40%;
+			padding-top: 40%;
+			
+			margin-top: 5%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		#play
+		{
+			visibility: hidden;
+		}
+		
+		#settings
+		{
+			visibility: hidden;
+		}
     </style>
 </head>
 <body onload="init()">
-    <div class="button up" ontouchend="moveY(1)" ontouchend="moveY(0)" onmousedown="moveY(1)" onmouseup="moveY(0)">
-    </div>
-    <div class="button down" ontouchstart="moveY(-1)" ontouchend="moveY(0)" onmousedown="moveY(-1)" onmouseup="moveY(0)">
-    </div>
-    <div class="button left" ontouchstart="moveX(-1)" ontouchend="moveX(0)" onmousedown="moveX(-1)" onmouseup="moveX(0)">
-    </div>
-    <div class="button right" ontouchstart="moveX(1)" ontouchend="moveX(0)" onmousedown="moveX(1)" onmouseup="moveX(0)">
-    </div>
-	
-	<div class="button bomb" ontouchstart="placeBomb(1)" ontouchend="placeBomb(0)" onmousedown="placeBomb(1)" onmouseup="placeBomb(0)">
+	<div id="play">
+		<div class="button up" ontouchend="moveY(1)" ontouchend="moveY(0)" onmousedown="moveY(1)" onmouseup="moveY(0)">
+		</div>
+		<div class="button down" ontouchstart="moveY(-1)" ontouchend="moveY(0)" onmousedown="moveY(-1)" onmouseup="moveY(0)">
+		</div>
+		<div class="button left" ontouchstart="moveX(-1)" ontouchend="moveX(0)" onmousedown="moveX(-1)" onmouseup="moveX(0)">
+		</div>
+		<div class="button right" ontouchstart="moveX(1)" ontouchend="moveX(0)" onmousedown="moveX(1)" onmouseup="moveX(0)">
+		</div>
+		
+		<div class="button bomb" ontouchstart="placeBomb(1)" ontouchend="placeBomb(0)" onmousedown="placeBomb(1)" onmouseup="placeBomb(0)">
+		</div>
 	</div>
-	
+	<div id="settings">
+		<div class="button start" ontouchstart="start()" onmousedown="start">
+		</div>
+	</div>
     <div id="player_id" style="color:white;">TEST</div>
 </body>
 </html>
