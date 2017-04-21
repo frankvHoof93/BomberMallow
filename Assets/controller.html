@@ -53,10 +53,10 @@
 	
 	function start()
 	{
-		var text = '{ type : "start" }';
-		airconsole.message(AirConsole.SCREEN, text);
 		document.getElementById("settings").style.visibility = "hidden";
 		document.getElementById("play").style.visibility = "visible";
+		var text = '{ type : "start" }';
+		airconsole.message(AirConsole.SCREEN, text);
 	}
 
     /**
@@ -193,7 +193,7 @@
 		</div>
 	</div>
 	<div id="settings">
-		<div class="button start" ontouchstart="start()" onmousedown="start">
+		<div class="button start" ontouchstart="start()" onmousedown="start()">
 		</div>
 	</div>
     <div id="player_id" style="color:white;">TEST</div>
