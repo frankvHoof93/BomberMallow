@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour {
         {
             Debug.Log("Devid " + k);
         }
-        if (playerID >= playerCount || playerID < 0)
-            return null;
         return players[playerID];
     }
 }
