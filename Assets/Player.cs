@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
 			Vector3 newPos = new Vector3(pos.x - 1, pos.y, pos.z);
 			this.transform.position = newPos;
 		}
-		else if (direction.y > 0 && (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y)))
+		else if (direction.x > 0 && (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y)))
         {
 			Vector3 newPos = new Vector3(pos.x + 1, pos.y, pos.z);
 			this.transform.position = newPos;

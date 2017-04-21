@@ -56,6 +56,15 @@ public class Bomb : MonoBehaviour {
 		{
 			rayHits.Add(hit);
 		}
+		
+		foreach(Collider c in Physics.OverlapBox(pos, new Vector3(0.1f, 0.1f, 0.1f)))
+		{
+			GameObject gO = c.gameObject;
+			if (gO.tag != "Metal" && gO.tag != "Bomb")
+			{
+				Destroy(gO);
+			}
+		}
 
 		foreach (RaycastHit rayHit in rayHits)
 		{
