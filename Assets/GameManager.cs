@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour {
     /// <returns></returns>
     public Player GetPlayer(int playerID)
     {
+        foreach (int k in players.Keys)
+        {
+            Debug.Log("Devid " + k);
+        }
         if (playerID >= playerCount || playerID < 0)
             return null;
         return players[playerID];

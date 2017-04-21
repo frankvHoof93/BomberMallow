@@ -25,6 +25,8 @@ public class AirConsoleController : MonoBehaviour {
 	void OnConnect(int device_id)
     {
         AirConsole.instance.SetActivePlayers(4);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            MainMenuController.controller.SetPlayerAmount(AirConsole.instance.GetActivePlayerDeviceIds.Count);
     }
 
     /// <summary>
@@ -46,27 +48,32 @@ public class AirConsoleController : MonoBehaviour {
     /// <param name="data">Data.</param>
     void OnMessage(int device_id, JToken data)
     {
-        Debug.Log("Message: " + data.ToString());
+        Debug.Log(device_id + " sent Message: " + data.ToString());
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
         if (active_player == -1) return;
         JToken parsedData = JToken.Parse(data.ToString());
-        if ((string)parsedData["type"] == "move")
-        {
-            Vector2 dir = Vector2.zero;
-            if ((string)parsedData["axes"] == "x")
-                dir.x = (float)parsedData["moveAmount"];
-            if ((string)parsedData["axes"] == "y")
-                dir.y = (float)parsedData["moveAmount"];
-            GameManager.manager.GetPlayer(device_id).SetDirection(dir);
-        }
-        else if ((string)parsedData["type"] == "bomb")
-        {
-            if ((bool)parsedData["bomb"])
-                GameManager.manager.GetPlayer(device_id).SetBomb();
-        }
-        else if ((string)parsedData["type"] == "start")
-        {
-            SceneManager.LoadScene(1);
-        }
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            if ((string)parsedData["type"] == "start")
+            {
+                SceneManager.LoadScene(1);
+            }
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            if ((string)parsedData["type"] == "move")
+            {
+                Vector2 dir = Vector2.zero;
+                if ((string)parsedData["axes"] == "x")
+                    dir.x = (float)parsedData["moveAmount"];
+                if ((string)parsedData["axes"] == "y")
+                    dir.y = (float)parsedData["moveAmount"];
+                Debug.Log("PlayerNULL? " + (GameManager.manager.GetPlayer(device_id) == null));
+                Player p = GameManager.manager.GetPlayer(device_id);
+                p.SetDirection(dir);
+                GameManager.manager.GetPlayer(device_id).SetDirection(dir);
+            }
+            else if ((string)parsedData["type"] == "bomb")
+            {
+                if ((bool)parsedData["bomb"])
+                    GameManager.manager.GetPlayer(device_id).SetBomb();
+            }
     }
 }
