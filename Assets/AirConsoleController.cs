@@ -61,7 +61,6 @@ public class AirConsoleController : MonoBehaviour {
     {
         Debug.Log("Message: " + data.ToString());
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-        Debug.Log("Player: " + active_player);
         if (active_player == -1) return;
         JToken parsedData = JToken.Parse(data.ToString());
         if ((string)parsedData["type"] == "move")
