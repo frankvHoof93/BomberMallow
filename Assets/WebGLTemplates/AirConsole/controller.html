@@ -14,7 +14,7 @@
      * Sets up the communication to the screen.
      */
     function init() {
-      airconsole = new AirConsole({"orientation": "landscape"});
+      airconsole = new AirConsole({"orientation": "portrait"});
       airconsole.onMessage = function(from, data) {
         if (from == AirConsole.SCREEN && data.vibrate) {
           navigator.vibrate(data.vibrate);
