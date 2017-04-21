@@ -55,13 +55,6 @@ public class GameManager : MonoBehaviour {
     /// <returns></returns>
     public Player GetPlayer(int playerID)
     {
-<<<<<<< HEAD
-=======
-        foreach (int k in players.Keys)
-        {
-            Debug.Log("Devid " + k);
-        }
->>>>>>> origin/master
         return players[playerID];
     }
 
