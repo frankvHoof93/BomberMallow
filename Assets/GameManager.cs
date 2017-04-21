@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour {
         else Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Instantiates Players
+    /// </summary>
     void Start() {
         players = new List<Player>();
         if (playerCount >= 2)

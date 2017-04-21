@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using System;
 
-public class AirConsoleTest : MonoBehaviour {
+public class AirConsoleController : MonoBehaviour {
 
     void Awake()
     {
@@ -25,12 +24,8 @@ public class AirConsoleTest : MonoBehaviour {
 	void OnConnect(int device_id)
     {
         if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0)
-        {
-            if (AirConsole.instance.GetControllerDeviceIds().Count >= 2)
-            {
-                AirConsole.instance.SetActivePlayers(2);
-            }
-        }
+            if (AirConsole.instance.GetControllerDeviceIds().Count == GameManager.manager.playerCount)
+                AirConsole.instance.SetActivePlayers(GameManager.manager.playerCount);
     }
 
     /// <summary>
@@ -64,14 +59,12 @@ public class AirConsoleTest : MonoBehaviour {
     /// <param name="data">Data.</param>
     void OnMessage(int device_id, JToken data)
     {
-        Debug.Log("Received Message");
         Debug.Log("Message: " + data.ToString());
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
         if (active_player == -1) return;
         JToken parsedData = JToken.Parse(data.ToString());
         if ((string)parsedData["type"] == "move")
         {
-            Debug.Log("MOVE PLAYER " + active_player);
             Vector2 dir = Vector2.zero;
             if ((string)parsedData["axes"] == "x")
                 dir.x = (float)parsedData["moveAmount"];
@@ -81,7 +74,6 @@ public class AirConsoleTest : MonoBehaviour {
         }
         else if ((string)parsedData["type"] == "bomb")
         {
-            Debug.Log("PLACEBOMB PLAYER " + active_player);
             if ((bool)parsedData["bomb"])
                 GameManager.manager.GetPlayer(active_player).SetBomb();
         }
