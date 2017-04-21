@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AirConsoleController : MonoBehaviour {
 
@@ -23,9 +24,7 @@ public class AirConsoleController : MonoBehaviour {
 	/// <param name="device_id">The device_id that connected</param>
 	void OnConnect(int device_id)
     {
-        if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0)
-            if (AirConsole.instance.GetControllerDeviceIds().Count == GameManager.manager.playerCount)
-                AirConsole.instance.SetActivePlayers(GameManager.manager.playerCount);
+        AirConsole.instance.SetActivePlayers(AirConsole.instance.GetActivePlayerDeviceIds.Count);
     }
 
     /// <summary>
@@ -61,7 +60,6 @@ public class AirConsoleController : MonoBehaviour {
     {
         Debug.Log("Message: " + data.ToString());
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-        Debug.Log("Player: " + active_player);
         if (active_player == -1) return;
         JToken parsedData = JToken.Parse(data.ToString());
         if ((string)parsedData["type"] == "move")
@@ -77,6 +75,10 @@ public class AirConsoleController : MonoBehaviour {
         {
             if ((bool)parsedData["bomb"])
                 GameManager.manager.GetPlayer(active_player).SetBomb();
+        }
+        else if ((string)parsedData["type"] == "start")
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }
