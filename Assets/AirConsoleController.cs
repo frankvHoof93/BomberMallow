@@ -2,6 +2,7 @@
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AirConsoleController : MonoBehaviour {
 
@@ -23,9 +24,7 @@ public class AirConsoleController : MonoBehaviour {
 	/// <param name="device_id">The device_id that connected</param>
 	void OnConnect(int device_id)
     {
-        if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0)
-            if (AirConsole.instance.GetControllerDeviceIds().Count == GameManager.manager.playerCount)
-                AirConsole.instance.SetActivePlayers(GameManager.manager.playerCount);
+        AirConsole.instance.SetActivePlayers(AirConsole.instance.GetActivePlayerDeviceIds.Count);
     }
 
     /// <summary>
@@ -61,7 +60,6 @@ public class AirConsoleController : MonoBehaviour {
     {
         Debug.Log("Message: " + data.ToString());
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-        Debug.Log("Player: " + active_player);
         if (active_player == -1) return;
         JToken parsedData = JToken.Parse(data.ToString());
         if ((string)parsedData["type"] == "move")
@@ -71,12 +69,16 @@ public class AirConsoleController : MonoBehaviour {
                 dir.x = (float)parsedData["moveAmount"];
             if ((string)parsedData["axes"] == "y")
                 dir.y = (float)parsedData["moveAmount"];
-            GameManager.manager.GetPlayer(active_player).SetDirection(dir);
+            GameManager.manager.GetPlayer(device_id).SetDirection(dir);
         }
         else if ((string)parsedData["type"] == "bomb")
         {
             if ((bool)parsedData["bomb"])
-                GameManager.manager.GetPlayer(active_player).SetBomb();
+                GameManager.manager.GetPlayer(device_id).SetBomb();
+        }
+        else if ((string)parsedData["type"] == "start")
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }
