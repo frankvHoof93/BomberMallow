@@ -34,7 +34,7 @@ public class Bomb : MonoBehaviour {
 	{
 		detonated = true;
 		Vector3 pos = this.GetComponent<Renderer>().transform.position;
-		GameObject explosionBase = Instantiate(Resources.Load<GameObject>("Explosion"), new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
+		GameObject explosionBase = Instantiate(Resources.Load<GameObject>("ExplosionBase"), new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
 		explosionList.Add(explosionBase);
 
 
@@ -42,22 +42,62 @@ public class Bomb : MonoBehaviour {
 		RaycastHit hit;
 		if (Physics.Raycast(new Ray(pos, new Vector3(1, 0, 0)), out hit, range))
 		{
+			float dis = Vector3.Distance(pos, hit.transform.position);
+			if (hit.transform.gameObject.tag == "Metal")
+			{
+				dis--;
+			}
+			BiemRight(pos, dis);
 			rayHits.Add(hit);
+		}
+		else
+		{
+			BiemRight(pos, range);
 		}
 		if (Physics.Raycast(new Ray(pos, new Vector3(-1, 0, 0)), out hit, range))
 		{
+			float dis = Vector3.Distance(pos, hit.transform.position);
+			if (hit.transform.gameObject.tag == "Metal")
+			{
+				dis--;
+			}
+			BiemLeft(pos, dis);
 			rayHits.Add(hit);
+		}
+		else
+		{
+			BiemLeft(pos, range);
 		}
 		if (Physics.Raycast(new Ray(pos, new Vector3(0, 0, 1)), out hit, range))
 		{
+			float dis = Vector3.Distance(pos, hit.transform.position);
+			if (hit.transform.gameObject.tag == "Metal")
+			{
+				dis--;
+			}
+			BiemUp(pos, dis);
 			rayHits.Add(hit);
+		}
+		else
+		{
+			BiemUp(pos, range);
 		}
 		if (Physics.Raycast(new Ray(pos, new Vector3(0, 0, -1)), out hit, range))
 		{
+			float dis = Vector3.Distance(pos, hit.transform.position);
+			if (hit.transform.gameObject.tag == "Metal")
+			{
+				dis--;
+			}
+			BiemDown(pos, dis);
 			rayHits.Add(hit);
 		}
-		
-		foreach(Collider c in Physics.OverlapBox(pos, new Vector3(0.1f, 0.1f, 0.1f)))
+		else
+		{
+			BiemDown(pos, range);
+		}
+
+		foreach (Collider c in Physics.OverlapBox(pos, new Vector3(0.1f, 0.1f, 0.1f)))
 		{
 			GameObject gO = c.gameObject;
 			if (gO.tag != "Metal" && gO.tag != "Bomb")
@@ -72,6 +112,80 @@ public class Bomb : MonoBehaviour {
 			if (gO.tag != "Metal" && gO.tag != "Bomb")
 			{
 				Destroy(gO);
+			}
+		}
+	}
+
+	private void BiemDown(Vector3 pos, float distance)
+	{
+		for (int i = 1; i <= distance; i++)
+		{
+			if (i == distance)
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionEnd"), new Vector3(pos.x, pos.y + 2, pos.z - i), Quaternion.identity);
+				explosion.transform.Rotate(new Vector3(0, 90, 0));
+				explosionList.Add(explosion);
+			}
+			else
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionMid"), new Vector3(pos.x, pos.y + 2, pos.z - i), Quaternion.identity);
+				explosion.transform.Rotate(new Vector3(0, 90, 0));
+				explosionList.Add(explosion);
+			}
+		}
+	}
+
+	private void BiemUp(Vector3 pos, float distance)
+	{
+		for (int i = 1; i <= distance; i++)
+		{
+			if (i == distance)
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionEnd"), new Vector3(pos.x, pos.y + 2, pos.z + i), Quaternion.identity);
+				explosion.transform.Rotate(new Vector3(0, 270, 0));
+				explosionList.Add(explosion);
+			}
+			else
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionMid"), new Vector3(pos.x, pos.y + 2, pos.z + i), Quaternion.identity);
+				explosion.transform.Rotate(new Vector3(0, 270, 0));
+				explosionList.Add(explosion);
+			}
+		}
+	}
+
+	private void BiemLeft(Vector3 pos, float distance)
+	{
+		for (int i = 1; i <= distance; i++)
+		{
+			if (i == distance)
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionEnd"), new Vector3(pos.x - i, pos.y + 2, pos.z), Quaternion.identity);
+				explosion.transform.Rotate(new Vector3(0, 180, 0));
+				explosionList.Add(explosion);
+			}
+			else
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionMid"), new Vector3(pos.x - 1, pos.y + 2, pos.z), Quaternion.identity);
+				explosion.transform.Rotate(new Vector3(0, 180, 0));
+				explosionList.Add(explosion);
+			}
+		}
+	}
+
+	private void BiemRight(Vector3 pos, float distance)
+	{
+		for (int i = 1; i <= distance; i++)
+		{
+			if (i == distance)
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionEnd"), new Vector3(pos.x + i, pos.y + 2, pos.z), Quaternion.identity);
+				explosionList.Add(explosion);
+			}
+			else
+			{
+				GameObject explosion = Instantiate(Resources.Load<GameObject>("ExplosionMid"), new Vector3(pos.x + 1, pos.y + 2, pos.z), Quaternion.identity);
+				explosionList.Add(explosion);
 			}
 		}
 	}
